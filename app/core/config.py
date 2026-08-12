@@ -6,6 +6,8 @@ class Settings(BaseSettings):
     langfuse_public_key: str = ""
     langfuse_host: str = "https://cloud.langfuse.com"
     openai_api_key: str = ""
+    supabase_url: str = ""
+    supabase_key: str = ""
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
