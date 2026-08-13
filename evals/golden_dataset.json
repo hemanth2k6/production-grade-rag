@@ -1,352 +1,52 @@
 [
   {
-    "question": "What is fact 1?",
-    "expected_answer": "Fact 1 is that RAG improves generation.",
-    "context": [
-      "According to document 1, Fact 1 is that RAG improves generation significantly."
-    ]
+    "question": "What is machine learning?",
+    "expected_answer": "Machine learning is a field of study in artificial intelligence concerned with statistical algorithms that learn from data to perform tasks without explicit instructions.",
+    "expected_chunk_ids": ["24494291ad731cc50125c689f0bdc676abeb95f9c93ccd3977dbeda30f0a2e09"]
   },
   {
-    "question": "What is fact 2?",
-    "expected_answer": "Fact 2 is that RAG improves generation.",
-    "context": [
-      "According to document 2, Fact 2 is that RAG improves generation significantly."
-    ]
+    "question": "Who coined the term machine learning and when?",
+    "expected_answer": "Arthur Samuel coined the term machine learning in 1959.",
+    "expected_chunk_ids": ["b64e820fe0d53c03443696012fd2e775b5ba0fb8bf207110a378b0d621c1defe"]
   },
   {
-    "question": "What is fact 3?",
-    "expected_answer": "Fact 3 is that RAG improves generation.",
-    "context": [
-      "According to document 3, Fact 3 is that RAG improves generation significantly."
-    ]
+    "question": "What was the Cybertron learning machine used for?",
+    "expected_answer": "The Cybertron was an experimental learning machine developed in the early 1960s to analyze sonar signals, electrocardiograms, and speech patterns using rudimentary reinforcement learning.",
+    "expected_chunk_ids": ["b64e820fe0d53c03443696012fd2e775b5ba0fb8bf207110a378b0d621c1defe"]
   },
   {
-    "question": "What is fact 4?",
-    "expected_answer": "Fact 4 is that RAG improves generation.",
-    "context": [
-      "According to document 4, Fact 4 is that RAG improves generation significantly."
-    ]
+    "question": "What are the two objectives of modern day machine learning?",
+    "expected_answer": "The two objectives of modern day machine learning are to classify data based on models and to make predictions for future outcomes.",
+    "expected_chunk_ids": ["b64e820fe0d53c03443696012fd2e775b5ba0fb8bf207110a378b0d621c1defe", "22cf05a40da100d4f90532debc75c8604b4fd397582b1a2f229d53f90161177c"]
   },
   {
-    "question": "What is fact 5?",
-    "expected_answer": "Fact 5 is that RAG improves generation.",
-    "context": [
-      "According to document 5, Fact 5 is that RAG improves generation significantly."
-    ]
+    "question": "What provides the mathematical foundations for machine learning?",
+    "expected_answer": "The mathematical foundations for machine learning are provided by mathematical optimization and mathematical programming methods.",
+    "expected_chunk_ids": ["24494291ad731cc50125c689f0bdc676abeb95f9c93ccd3977dbeda30f0a2e09"]
   },
   {
-    "question": "What is fact 6?",
-    "expected_answer": "Fact 6 is that RAG improves generation.",
-    "context": [
-      "According to document 6, Fact 6 is that RAG improves generation significantly."
-    ]
+    "question": "What is exploratory data analysis (EDA) related to?",
+    "expected_answer": "Exploratory data analysis (EDA) is related to data mining, which focuses on it through unsupervised learning.",
+    "expected_chunk_ids": ["24494291ad731cc50125c689f0bdc676abeb95f9c93ccd3977dbeda30f0a2e09"]
   },
   {
-    "question": "What is fact 7?",
-    "expected_answer": "Fact 7 is that RAG improves generation.",
-    "context": [
-      "According to document 7, Fact 7 is that RAG improves generation significantly."
-    ]
+    "question": "In 1981, what did a neural network learn to recognize?",
+    "expected_answer": "In 1981, a neural network learned to recognize 40 characters (26 letters, 10 digits, and 4 special symbols) from a computer terminal.",
+    "expected_chunk_ids": ["b64e820fe0d53c03443696012fd2e775b5ba0fb8bf207110a378b0d621c1defe", "22cf05a40da100d4f90532debc75c8604b4fd397582b1a2f229d53f90161177c"]
   },
   {
-    "question": "What is fact 8?",
-    "expected_answer": "Fact 8 is that RAG improves generation.",
-    "context": [
-      "According to document 8, Fact 8 is that RAG improves generation significantly."
-    ]
+    "question": "What fields have machine learning approaches been applied to?",
+    "expected_answer": "Machine learning approaches have been applied to natural language processing, computer vision, speech recognition, email filtering, agriculture, and medicine.",
+    "expected_chunk_ids": ["24494291ad731cc50125c689f0bdc676abeb95f9c93ccd3977dbeda30f0a2e09"]
   },
   {
-    "question": "What is fact 9?",
-    "expected_answer": "Fact 9 is that RAG improves generation.",
-    "context": [
-      "According to document 9, Fact 9 is that RAG improves generation significantly."
-    ]
+    "question": "What was the purpose of the 'goof' button on the Cybertron?",
+    "expected_answer": "The 'goof' button caused the Cybertron to re-evaluate incorrect decisions during its training by a human operator.",
+    "expected_chunk_ids": ["b64e820fe0d53c03443696012fd2e775b5ba0fb8bf207110a378b0d621c1defe"]
   },
   {
-    "question": "What is fact 10?",
-    "expected_answer": "Fact 10 is that RAG improves generation.",
-    "context": [
-      "According to document 10, Fact 10 is that RAG improves generation significantly."
-    ]
-  },
-  {
-    "question": "What is fact 11?",
-    "expected_answer": "Fact 11 is that RAG improves generation.",
-    "context": [
-      "According to document 11, Fact 11 is that RAG improves generation significantly."
-    ]
-  },
-  {
-    "question": "What is fact 12?",
-    "expected_answer": "Fact 12 is that RAG improves generation.",
-    "context": [
-      "According to document 12, Fact 12 is that RAG improves generation significantly."
-    ]
-  },
-  {
-    "question": "What is fact 13?",
-    "expected_answer": "Fact 13 is that RAG improves generation.",
-    "context": [
-      "According to document 13, Fact 13 is that RAG improves generation significantly."
-    ]
-  },
-  {
-    "question": "What is fact 14?",
-    "expected_answer": "Fact 14 is that RAG improves generation.",
-    "context": [
-      "According to document 14, Fact 14 is that RAG improves generation significantly."
-    ]
-  },
-  {
-    "question": "What is fact 15?",
-    "expected_answer": "Fact 15 is that RAG improves generation.",
-    "context": [
-      "According to document 15, Fact 15 is that RAG improves generation significantly."
-    ]
-  },
-  {
-    "question": "What is fact 16?",
-    "expected_answer": "Fact 16 is that RAG improves generation.",
-    "context": [
-      "According to document 16, Fact 16 is that RAG improves generation significantly."
-    ]
-  },
-  {
-    "question": "What is fact 17?",
-    "expected_answer": "Fact 17 is that RAG improves generation.",
-    "context": [
-      "According to document 17, Fact 17 is that RAG improves generation significantly."
-    ]
-  },
-  {
-    "question": "What is fact 18?",
-    "expected_answer": "Fact 18 is that RAG improves generation.",
-    "context": [
-      "According to document 18, Fact 18 is that RAG improves generation significantly."
-    ]
-  },
-  {
-    "question": "What is fact 19?",
-    "expected_answer": "Fact 19 is that RAG improves generation.",
-    "context": [
-      "According to document 19, Fact 19 is that RAG improves generation significantly."
-    ]
-  },
-  {
-    "question": "What is fact 20?",
-    "expected_answer": "Fact 20 is that RAG improves generation.",
-    "context": [
-      "According to document 20, Fact 20 is that RAG improves generation significantly."
-    ]
-  },
-  {
-    "question": "What is fact 21?",
-    "expected_answer": "Fact 21 is that RAG improves generation.",
-    "context": [
-      "According to document 21, Fact 21 is that RAG improves generation significantly."
-    ]
-  },
-  {
-    "question": "What is fact 22?",
-    "expected_answer": "Fact 22 is that RAG improves generation.",
-    "context": [
-      "According to document 22, Fact 22 is that RAG improves generation significantly."
-    ]
-  },
-  {
-    "question": "What is fact 23?",
-    "expected_answer": "Fact 23 is that RAG improves generation.",
-    "context": [
-      "According to document 23, Fact 23 is that RAG improves generation significantly."
-    ]
-  },
-  {
-    "question": "What is fact 24?",
-    "expected_answer": "Fact 24 is that RAG improves generation.",
-    "context": [
-      "According to document 24, Fact 24 is that RAG improves generation significantly."
-    ]
-  },
-  {
-    "question": "What is fact 25?",
-    "expected_answer": "Fact 25 is that RAG improves generation.",
-    "context": [
-      "According to document 25, Fact 25 is that RAG improves generation significantly."
-    ]
-  },
-  {
-    "question": "What is fact 26?",
-    "expected_answer": "Fact 26 is that RAG improves generation.",
-    "context": [
-      "According to document 26, Fact 26 is that RAG improves generation significantly."
-    ]
-  },
-  {
-    "question": "What is fact 27?",
-    "expected_answer": "Fact 27 is that RAG improves generation.",
-    "context": [
-      "According to document 27, Fact 27 is that RAG improves generation significantly."
-    ]
-  },
-  {
-    "question": "What is fact 28?",
-    "expected_answer": "Fact 28 is that RAG improves generation.",
-    "context": [
-      "According to document 28, Fact 28 is that RAG improves generation significantly."
-    ]
-  },
-  {
-    "question": "What is fact 29?",
-    "expected_answer": "Fact 29 is that RAG improves generation.",
-    "context": [
-      "According to document 29, Fact 29 is that RAG improves generation significantly."
-    ]
-  },
-  {
-    "question": "What is fact 30?",
-    "expected_answer": "Fact 30 is that RAG improves generation.",
-    "context": [
-      "According to document 30, Fact 30 is that RAG improves generation significantly."
-    ]
-  },
-  {
-    "question": "What is fact 31?",
-    "expected_answer": "Fact 31 is that RAG improves generation.",
-    "context": [
-      "According to document 31, Fact 31 is that RAG improves generation significantly."
-    ]
-  },
-  {
-    "question": "What is fact 32?",
-    "expected_answer": "Fact 32 is that RAG improves generation.",
-    "context": [
-      "According to document 32, Fact 32 is that RAG improves generation significantly."
-    ]
-  },
-  {
-    "question": "What is fact 33?",
-    "expected_answer": "Fact 33 is that RAG improves generation.",
-    "context": [
-      "According to document 33, Fact 33 is that RAG improves generation significantly."
-    ]
-  },
-  {
-    "question": "What is fact 34?",
-    "expected_answer": "Fact 34 is that RAG improves generation.",
-    "context": [
-      "According to document 34, Fact 34 is that RAG improves generation significantly."
-    ]
-  },
-  {
-    "question": "What is fact 35?",
-    "expected_answer": "Fact 35 is that RAG improves generation.",
-    "context": [
-      "According to document 35, Fact 35 is that RAG improves generation significantly."
-    ]
-  },
-  {
-    "question": "What is fact 36?",
-    "expected_answer": "Fact 36 is that RAG improves generation.",
-    "context": [
-      "According to document 36, Fact 36 is that RAG improves generation significantly."
-    ]
-  },
-  {
-    "question": "What is fact 37?",
-    "expected_answer": "Fact 37 is that RAG improves generation.",
-    "context": [
-      "According to document 37, Fact 37 is that RAG improves generation significantly."
-    ]
-  },
-  {
-    "question": "What is fact 38?",
-    "expected_answer": "Fact 38 is that RAG improves generation.",
-    "context": [
-      "According to document 38, Fact 38 is that RAG improves generation significantly."
-    ]
-  },
-  {
-    "question": "What is fact 39?",
-    "expected_answer": "Fact 39 is that RAG improves generation.",
-    "context": [
-      "According to document 39, Fact 39 is that RAG improves generation significantly."
-    ]
-  },
-  {
-    "question": "What is fact 40?",
-    "expected_answer": "Fact 40 is that RAG improves generation.",
-    "context": [
-      "According to document 40, Fact 40 is that RAG improves generation significantly."
-    ]
-  },
-  {
-    "question": "What is fact 41?",
-    "expected_answer": "Fact 41 is that RAG improves generation.",
-    "context": [
-      "According to document 41, Fact 41 is that RAG improves generation significantly."
-    ]
-  },
-  {
-    "question": "What is fact 42?",
-    "expected_answer": "Fact 42 is that RAG improves generation.",
-    "context": [
-      "According to document 42, Fact 42 is that RAG improves generation significantly."
-    ]
-  },
-  {
-    "question": "What is fact 43?",
-    "expected_answer": "Fact 43 is that RAG improves generation.",
-    "context": [
-      "According to document 43, Fact 43 is that RAG improves generation significantly."
-    ]
-  },
-  {
-    "question": "What is fact 44?",
-    "expected_answer": "Fact 44 is that RAG improves generation.",
-    "context": [
-      "According to document 44, Fact 44 is that RAG improves generation significantly."
-    ]
-  },
-  {
-    "question": "What is fact 45?",
-    "expected_answer": "Fact 45 is that RAG improves generation.",
-    "context": [
-      "According to document 45, Fact 45 is that RAG improves generation significantly."
-    ]
-  },
-  {
-    "question": "What is fact 46?",
-    "expected_answer": "Fact 46 is that RAG improves generation.",
-    "context": [
-      "According to document 46, Fact 46 is that RAG improves generation significantly."
-    ]
-  },
-  {
-    "question": "What is fact 47?",
-    "expected_answer": "Fact 47 is that RAG improves generation.",
-    "context": [
-      "According to document 47, Fact 47 is that RAG improves generation significantly."
-    ]
-  },
-  {
-    "question": "What is fact 48?",
-    "expected_answer": "Fact 48 is that RAG improves generation.",
-    "context": [
-      "According to document 48, Fact 48 is that RAG improves generation significantly."
-    ]
-  },
-  {
-    "question": "What is fact 49?",
-    "expected_answer": "Fact 49 is that RAG improves generation.",
-    "context": [
-      "According to document 49, Fact 49 is that RAG improves generation significantly."
-    ]
-  },
-  {
-    "question": "What is fact 50?",
-    "expected_answer": "Fact 50 is that RAG improves generation.",
-    "context": [
-      "According to document 50, Fact 50 is that RAG improves generation significantly."
-    ]
+    "question": "What is PAC learning?",
+    "expected_answer": "Probably approximately correct (PAC) learning provides a theoretical framework for describing machine learning.",
+    "expected_chunk_ids": ["24494291ad731cc50125c689f0bdc676abeb95f9c93ccd3977dbeda30f0a2e09"]
   }
 ]
