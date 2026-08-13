@@ -12,6 +12,7 @@ client = AsyncOpenAI(
 class QAResponse(BaseModel):
     answer: str = Field(description="The generated answer, or a declination if context is missing.")
     citations: List[str] = Field(description="A list of chunk IDs that strictly support the answer.")
+    usage: Dict[str, int] = Field(default_factory=dict, description="Token usage details")
 
 class LLMService:
     async def generate_response(self, query: str, retrieved_chunks: List[Dict[str, Any]]) -> QAResponse:
@@ -51,8 +52,15 @@ class LLMService:
             answer = result_json.get("answer", "")
             citations = result_json.get("citations", [])
             
+            # Capture usage
+            usage_dict = {
+                "prompt_tokens": response.usage.prompt_tokens if response.usage else 0,
+                "completion_tokens": response.usage.completion_tokens if response.usage else 0,
+                "total_tokens": response.usage.total_tokens if response.usage else 0
+            }
+            
             if "I don't have enough grounded information to answer this" in answer:
-                return QAResponse(answer=answer, citations=[])
+                return QAResponse(answer=answer, citations=[], usage=usage_dict)
                 
             valid_chunk_ids = {str(c["id"]) for c in retrieved_chunks}
             validated_citations = [c for c in citations if str(c) in valid_chunk_ids]
@@ -61,14 +69,16 @@ class LLMService:
                 # LLM hallucinated citations
                 return QAResponse(
                     answer="I don't have enough grounded information to answer this.",
-                    citations=[]
+                    citations=[],
+                    usage=usage_dict
                 )
                 
-            return QAResponse(answer=answer, citations=validated_citations)
+            return QAResponse(answer=answer, citations=validated_citations, usage=usage_dict)
         except Exception:
             return QAResponse(
                 answer="I don't have enough grounded information to answer this.", 
-                citations=[]
+                citations=[],
+                usage={}
             )
 
 llm_service = LLMService()
