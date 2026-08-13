@@ -151,3 +151,7 @@ wrapt==2.3.0
 xxhash==3.8.1
 yarl==1.24.5
 zstandard==0.25.0
+chromadb
+rank_bm25
+pytest
+pytest-asyncio
