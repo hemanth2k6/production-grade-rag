@@ -3,7 +3,6 @@ from fastapi import APIRouter
 from pydantic import BaseModel
 from app.services.llm import llm_service
 from app.services.retrieval import retrieval_service
-from langfuse.decorators import observe
 
 router = APIRouter()
 
@@ -16,13 +15,10 @@ class QueryResponse(BaseModel):
     citations: List[int]
 
 @router.post("/query", response_model=QueryResponse)
-@observe(name="api_handle_query")
 async def handle_query(request: QueryRequest):
     # Step 1: Retrieve and Rerank
-    # Pass None for embedding since we are expecting RetrievalService to handle placeholder or integration
     chunks = await retrieval_service.retrieve_and_rerank(
         query=request.query, 
-        query_embedding=None, 
         top_k=request.top_k
     )
     
