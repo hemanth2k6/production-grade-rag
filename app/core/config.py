@@ -5,7 +5,7 @@ class Settings(BaseSettings):
     langfuse_secret_key: str = ""
     langfuse_public_key: str = ""
     langfuse_host: str = "https://cloud.langfuse.com"
-    openai_api_key: str = ""
+    openrouter_api_key: str = ""
     supabase_url: str = ""
     supabase_key: str = ""
 
