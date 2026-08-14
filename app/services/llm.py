@@ -1,26 +1,27 @@
 import json
 from typing import List, Dict, Any
 from pydantic import BaseModel, Field
-from openai import AsyncOpenAI
+from langchain_google_genai import ChatGoogleGenerativeAI
 from app.core.config import settings
-
-client = AsyncOpenAI(
-    base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
-    api_key=settings.gemini_api_key,
-) if settings.gemini_api_key else None
 
 class QAResponse(BaseModel):
     answer: str = Field(description="The generated answer, or a declination if context is missing.")
     citations: List[str] = Field(description="A list of chunk IDs that strictly support the answer.")
     usage: Dict[str, int] = Field(default_factory=dict, description="Token usage details")
 
+client = ChatGoogleGenerativeAI(
+    model="gemini-2.5-flash",
+    google_api_key=settings.gemini_api_key,
+    temperature=0.0
+).with_structured_output(QAResponse) if settings.gemini_api_key else None
+
 class LLMService:
     async def generate_response(self, query: str, retrieved_chunks: List[Dict[str, Any]]) -> QAResponse:
         """
-        Generates an answer using OpenRouter, enforcing strict citation and JSON output.
+        Generates an answer using Gemini, enforcing strict citation and JSON output.
         """
         if not client:
-            raise ValueError("OPENROUTER_API_KEY is not configured.")
+            raise ValueError("GEMINI_API_KEY is not configured.")
 
         context_text = "\n\n".join(
             [f"Chunk ID: {chunk['id']}\nContent: {chunk['content']}" for chunk in retrieved_chunks]
@@ -36,31 +37,17 @@ class LLMService:
             "--- DOCUMENTS END ---\n"
         )
 
-        response = await client.chat.completions.create(
-            model="gemini-1.5-flash",
-            messages=[
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": query}
-            ],
-            response_format={"type": "json_object"},
-            temperature=0.0
-        )
-
-        result_text = response.choices[0].message.content
-        
         try:
-            result_json = json.loads(result_text)
+            # Langchain handles the prompt and structured output natively
+            result_obj: QAResponse = await client.ainvoke([
+                ("system", system_prompt),
+                ("user", query)
+            ])
             
             # Post-hoc Citation Validation
-            answer = result_json.get("answer", "")
-            citations = result_json.get("citations", [])
-            
-            # Capture usage
-            usage_dict = {
-                "prompt_tokens": response.usage.prompt_tokens if response.usage else 0,
-                "completion_tokens": response.usage.completion_tokens if response.usage else 0,
-                "total_tokens": response.usage.total_tokens if response.usage else 0
-            }
+            answer = result_obj.answer
+            citations = result_obj.citations
+            usage_dict = result_obj.usage
             
             if "I don't have enough grounded information to answer this" in answer:
                 return QAResponse(answer=answer, citations=[], usage=usage_dict)

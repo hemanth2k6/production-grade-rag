@@ -15,7 +15,8 @@ sys.modules['langchain_community.chat_models.vertexai'] = vertexai_mock
 
 from ragas import evaluate
 from ragas.metrics import faithfulness, answer_relevancy
-from langchain_openai import ChatOpenAI, OpenAIEmbeddings
+from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_openai import OpenAIEmbeddings
 
 # Add the project root to sys.path so we can import the app
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
@@ -69,13 +70,11 @@ def run_eval():
     
     print("Running Ragas evaluation...")
 
-    # Ragas uses Langchain Chat models. We point it to Gemini via OpenAI compatibility.
-    llm = ChatOpenAI(
-        api_key=settings.gemini_api_key,
-        base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
-        model="gemini-1.5-flash",
-        timeout=120.0,
-        max_retries=10
+    # Ragas uses Langchain Chat models. We point it to Gemini via Langchain.
+    llm = ChatGoogleGenerativeAI(
+        model="gemini-2.5-flash",
+        google_api_key=settings.gemini_api_key,
+        temperature=0.0
     )
 
     try:
