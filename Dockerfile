@@ -1,19 +1,40 @@
+# Stage 1: Build dependencies
+FROM python:3.12-slim as builder
+
+WORKDIR /app
+
+# Install system build dependencies if needed
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt .
+RUN pip install --user --no-cache-dir -r requirements.txt
+
+# Stage 2: Runtime
 FROM python:3.12-slim
 
 WORKDIR /app
 
-# Install dependencies
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Create a non-root user
+RUN useradd -m -s /bin/bash appuser
 
-# Copy everything else
+# Copy installed dependencies from builder
+COPY --from=builder /root/.local /home/appuser/.local
+
+# Ensure local bin is in PATH
+ENV PATH=/home/appuser/.local/bin:$PATH
+
+# Copy application code
 COPY . .
 
-# Run ingestion script to pre-build ChromaDB and BM25 indices within the container
-RUN python scripts/ingest.py
+# Set ownership to non-root user
+RUN chown -R appuser:appuser /app
 
-# Expose the port
+# Switch to non-root user
+USER appuser
+
 EXPOSE 8000
 
-# Start the application, using the PORT environment variable if provided
-CMD uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}
+# Start the application
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]

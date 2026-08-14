@@ -1,23 +1,25 @@
 from typing import List
-from fastapi import APIRouter
-from pydantic import BaseModel
+from fastapi import APIRouter, Request
+from pydantic import BaseModel, Field
 from app.services.llm import llm_service
 from app.services.retrieval import retrieval_service
 from app.core.telemetry import log_request, get_latency_metrics
+from app.core.limiter import limiter
 import time
 
 router = APIRouter()
 
 class QueryRequest(BaseModel):
-    query: str
-    top_k: int = 5
+    query: str = Field(..., min_length=1, max_length=1000, description="The query string")
+    top_k: int = Field(default=5, ge=1, le=20)
 
 class QueryResponse(BaseModel):
     answer: str
     citations: List[int]
 
 @router.post("/query", response_model=QueryResponse)
-async def handle_query(request: QueryRequest):
+@limiter.limit("5/minute")
+async def handle_query(request: Request, payload: QueryRequest):
     start_time = time.time()
     
     # Step 1: Retrieve and Rerank

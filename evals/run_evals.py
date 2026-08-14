@@ -3,6 +3,16 @@ import os
 import sys
 import asyncio
 from datasets import Dataset
+
+# -- MONKEYPATCH FOR RAGAS IMPORT BUG --
+# Ragas strictly tries to import ChatVertexAI which crashes if google-cloud is missing.
+# We mock the module to allow the import to succeed without modifying site-packages.
+import types
+vertexai_mock = types.ModuleType('langchain_community.chat_models.vertexai')
+vertexai_mock.ChatVertexAI = type('ChatVertexAI', (object,), {})
+sys.modules['langchain_community.chat_models.vertexai'] = vertexai_mock
+# --------------------------------------
+
 from ragas import evaluate
 from ragas.metrics import faithfulness, answer_relevancy
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
@@ -66,23 +76,37 @@ def run_eval():
     llm = ChatOpenAI(
         api_key=settings.openrouter_api_key,
         base_url="https://openrouter.ai/api/v1",
-        model="openai/gpt-4o-mini"
+        model="openai/gpt-4o-mini",
+        request_timeout=120.0,
+        max_retries=10
     )
 
     try:
+        # Prevent concurrent rate limiting
+        os.environ["RAGAS_MAX_CONCURRENCY"] = "1"
+        
         result = evaluate(
             dataset,
-            metrics=[faithfulness], # answer_relevancy removed to avoid embedding API issues
+            metrics=[faithfulness],
             llm=llm,
             raise_exceptions=False
         )
         print("Evaluation Results:")
         print(result)
         
-        faithfulness_score = result.get("faithfulness", 0.0)
-        
-        if faithfulness_score < 0.75:
-            print(f"::error::Faithfulness score ({faithfulness_score}) is below the threshold of 0.75")
+        try:
+            val = result["faithfulness"]
+            if isinstance(val, list):
+                faithfulness_score = float(sum(val)/len(val)) if val else 0.0
+            else:
+                faithfulness_score = float(val)
+        except Exception as e:
+            print(f"Parsing error: {e}")
+            faithfulness_score = 0.0
+                
+        import math
+        if math.isnan(faithfulness_score) or faithfulness_score < 0.75:
+            print(f"::error::Faithfulness score ({faithfulness_score}) is invalid or below the threshold of 0.75")
             sys.exit(1)
             
         print(f"Success! Faithfulness score: {faithfulness_score}")

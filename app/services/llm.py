@@ -7,6 +7,7 @@ from app.core.config import settings
 client = AsyncOpenAI(
     base_url="https://openrouter.ai/api/v1",
     api_key=settings.openrouter_api_key,
+    timeout=30.0,
 ) if settings.openrouter_api_key else None
 
 class QAResponse(BaseModel):
@@ -31,7 +32,9 @@ class LLMService:
             "If the provided documents DO NOT contain the answer, you MUST decline to answer by stating exactly: "
             "'I don't have enough grounded information to answer this'.\n"
             "You must output a JSON object with 'answer' and an array of 'citations' containing the string Chunk IDs that support your answer.\n"
-            f"Documents:\n{context_text}"
+            "--- DOCUMENTS START ---\n"
+            f"{context_text}\n"
+            "--- DOCUMENTS END ---\n"
         )
 
         response = await client.chat.completions.create(
