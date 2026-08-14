@@ -37,7 +37,7 @@ PAYLOAD=$(cat <<EOF
         "envVars": [
             {"key": "SUPABASE_URL", "value": "$SUPABASE_URL"},
             {"key": "SUPABASE_KEY", "value": "$SUPABASE_KEY"},
-            {"key": "OPENROUTER_API_KEY", "value": "$OPENROUTER_API_KEY"},
+            {"key": "GEMINI_API_KEY", "value": "$GEMINI_API_KEY"},
             {"key": "LANGFUSE_PUBLIC_KEY", "value": "$LANGFUSE_PUBLIC_KEY"},
             {"key": "LANGFUSE_SECRET_KEY", "value": "$LANGFUSE_SECRET_KEY"},
             {"key": "LANGFUSE_HOST", "value": "$LANGFUSE_HOST"}

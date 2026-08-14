@@ -58,25 +58,22 @@ def run_eval():
         print(f"Dataset not found at {dataset_path}")
         sys.exit(1)
         
-    if not settings.openrouter_api_key:
-        print("OPENROUTER_API_KEY not set. Cannot run evaluation.")
-        print("Blocked / needs verification. Exiting with failure to enforce CI gating.")
-        sys.exit(1)
-
+    if not settings.gemini_api_key:
+        print("GEMINI_API_KEY not set. Cannot run evaluation.")
+        exit(1)
+        
+    print("Generating answers for evaluation dataset...")
+    
     # 1. Generate answers via real RAG pipeline
     dataset = asyncio.run(generate_rag_answers(dataset_path))
     
     print("Running Ragas evaluation...")
-    
-    # Ragas uses Langchain Chat models. We point it to OpenRouter.
-    # Note: Ragas metrics might still require embeddings (e.g. for relevancy). 
-    # OpenRouter doesn't natively support OpenAI embeddings endpoint in the exact same way, 
-    # but we can use an open router model or just skip answer_relevancy if embeddings fail.
-    # For this script we will evaluate faithfulness which only needs LLM.
+
+    # Ragas uses Langchain Chat models. We point it to Gemini via OpenAI compatibility.
     llm = ChatOpenAI(
-        api_key=settings.openrouter_api_key,
-        base_url="https://openrouter.ai/api/v1",
-        model="openai/gpt-4o-mini",
+        api_key=settings.gemini_api_key,
+        base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
+        model="gemini-1.5-flash",
         timeout=120.0,
         max_retries=10
     )

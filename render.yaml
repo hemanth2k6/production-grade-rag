@@ -10,7 +10,7 @@ services:
         sync: false
       - key: SUPABASE_KEY
         sync: false
-      - key: OPENROUTER_API_KEY
+      - key: GEMINI_API_KEY
         sync: false
       - key: LANGFUSE_PUBLIC_KEY
         sync: false

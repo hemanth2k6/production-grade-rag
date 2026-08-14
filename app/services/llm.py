@@ -5,10 +5,9 @@ from openai import AsyncOpenAI
 from app.core.config import settings
 
 client = AsyncOpenAI(
-    base_url="https://openrouter.ai/api/v1",
-    api_key=settings.openrouter_api_key,
-    timeout=30.0,
-) if settings.openrouter_api_key else None
+    base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
+    api_key=settings.gemini_api_key,
+) if settings.gemini_api_key else None
 
 class QAResponse(BaseModel):
     answer: str = Field(description="The generated answer, or a declination if context is missing.")
@@ -38,12 +37,13 @@ class LLMService:
         )
 
         response = await client.chat.completions.create(
-            model="openai/gpt-4o-mini",
+            model="gemini-1.5-flash",
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": query}
             ],
-            response_format={"type": "json_object"}
+            response_format={"type": "json_object"},
+            temperature=0.0
         )
 
         result_text = response.choices[0].message.content

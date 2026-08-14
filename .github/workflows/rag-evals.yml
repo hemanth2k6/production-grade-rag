@@ -38,7 +38,7 @@ jobs:
           
       - name: Run Ragas Offline Evaluation
         env:
-          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
           # Faithfulness threshold is hardcoded to 0.75 in the eval script.
           # We chose 0.75 as it provides a solid baseline indicating the LLM 

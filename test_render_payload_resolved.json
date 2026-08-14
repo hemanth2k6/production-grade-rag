@@ -1,0 +1,8 @@
+{
+    "type": "web_service",
+    "name": "test-rag-service",
+    "ownerId": "",
+    "repo": "https://github.com/hemanth2k6/production-grade-rag",
+    "branch": "main",
+    "env": "docker"
+}
