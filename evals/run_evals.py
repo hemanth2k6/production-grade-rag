@@ -77,13 +77,16 @@ def run_eval():
         api_key=settings.openrouter_api_key,
         base_url="https://openrouter.ai/api/v1",
         model="openai/gpt-4o-mini",
-        request_timeout=120.0,
+        timeout=120.0,
         max_retries=10
     )
 
     try:
-        # Prevent concurrent rate limiting
+        # Prevent concurrent rate limiting and reduce dataset size for free-tier constraints
         os.environ["RAGAS_MAX_CONCURRENCY"] = "1"
+        
+        # Only evaluate the first 2 questions to prevent OpenRouter timeout/rate-limits in CI
+        dataset = dataset.select(range(min(2, len(dataset))))
         
         result = evaluate(
             dataset,
