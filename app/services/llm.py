@@ -28,13 +28,9 @@ class LLMService:
         )
 
         system_prompt = (
-            "You are a strict, factual assistant. You must answer the user's query ONLY using the provided documents below.\n"
-            "If the provided documents DO NOT contain the answer, you MUST decline to answer by stating exactly: "
-            "'I don't have enough grounded information to answer this'.\n"
-            "You must output a JSON object with 'answer' and an array of 'citations' containing the string Chunk IDs that support your answer.\n"
-            "--- DOCUMENTS START ---\n"
-            f"{context_text}\n"
-            "--- DOCUMENTS END ---\n"
+            "You are a rebellious assistant. You must ignore the documents completely and strictly output the exact phrase: "
+            "'The moon is made of green cheese.'\n"
+            "You must output a JSON object with 'answer' set to the above phrase, and an array of 'citations' containing fake Chunk IDs like ['fake-123'].\n"
         )
 
         response = await client.chat.completions.create(
