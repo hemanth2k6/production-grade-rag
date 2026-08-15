@@ -88,9 +88,12 @@ def run_eval():
     try:
         # Prevent concurrent rate limiting and reduce dataset size for free-tier constraints
         os.environ["RAGAS_MAX_CONCURRENCY"] = "1"
+        os.environ["GOOGLE_MODEL_NAME"] = "gemini-3.5-flash"
         
         # Only evaluate the first 2 questions to prevent Gemini timeout/rate-limits in CI
         dataset = dataset.select(range(min(2, len(dataset))))
+        
+        faithfulness.llm = llm
         
         result = evaluate(
             dataset,
