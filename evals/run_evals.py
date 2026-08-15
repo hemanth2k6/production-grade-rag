@@ -80,7 +80,7 @@ def run_eval():
 
     # Ragas uses Langchain Chat models. We point it to Gemini via Langchain.
     llm = ChatGoogleGenerativeAI(
-        model="gemini-2.5-flash",
+        model="gemini-3.5-flash",
         google_api_key=settings.gemini_api_key,
         temperature=0.0
     )
@@ -88,7 +88,7 @@ def run_eval():
     try:
         # Prevent concurrent rate limiting and reduce dataset size for free-tier constraints
         os.environ["RAGAS_MAX_CONCURRENCY"] = "1"
-        os.environ["GOOGLE_MODEL_NAME"] = "gemini-2.5-flash"
+        os.environ["GOOGLE_MODEL_NAME"] = "gemini-3.5-flash"
         
         # Only evaluate the first 1 question to prevent Gemini timeout/rate-limits in CI
         dataset = dataset.select(range(min(1, len(dataset))))
