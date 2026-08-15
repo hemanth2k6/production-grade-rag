@@ -12,7 +12,8 @@ class QAResponse(BaseModel):
 client = ChatGoogleGenerativeAI(
     model="gemini-3.5-flash",
     google_api_key=settings.gemini_api_key,
-    temperature=0.0
+    temperature=0.0,
+    max_retries=20
 ).with_structured_output(QAResponse) if settings.gemini_api_key else None
 
 class LLMService:

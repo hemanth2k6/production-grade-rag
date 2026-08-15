@@ -82,7 +82,8 @@ def run_eval():
     llm = ChatGoogleGenerativeAI(
         model="gemini-3.5-flash",
         google_api_key=settings.gemini_api_key,
-        temperature=0.0
+        temperature=0.0,
+        max_retries=20
     )
 
     try:
