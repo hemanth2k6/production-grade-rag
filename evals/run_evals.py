@@ -63,6 +63,14 @@ def run_eval():
         print("GEMINI_API_KEY not set. Cannot run evaluation.")
         exit(1)
         
+    import urllib.request
+    try:
+        req = urllib.request.Request(f"https://generativelanguage.googleapis.com/v1beta/models?key={settings.gemini_api_key}")
+        with urllib.request.urlopen(req) as response:
+            print("AVAILABLE MODELS:", response.read().decode())
+    except Exception as e:
+        print("Failed to list models:", e)
+        
     print("Generating answers for evaluation dataset...")
     
     # 1. Generate answers via real RAG pipeline
