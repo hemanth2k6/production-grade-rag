@@ -54,20 +54,20 @@ When a request hits `POST /api/v1/query`:
 - **Bloat / Unused Dependencies**: `requirements.txt` contains 154 packages. The codebase natively implements everything and does **not** use `langchain`, `langgraph`, `pandas`, `scikit-learn`, `SQLAlchemy`, etc., despite them being installed. 
 - **Missing Dependencies**: No notable missing dependencies for the code that is actually written, though an embedding generator (e.g., OpenAI embeddings API) is conspicuously absent.
 
-## 5. Secrets / Config Check (OpenRouter Migration)
+## 5. Secrets / Config Check (Gemini Migration)
 
 Secrets are currently managed via `app/core/config.py` using `pydantic_settings` to read from `.env` and environment variables.
 
-**Flagged for OpenRouter Migration:**
+**Flagged for Gemini Migration:**
 - `app/services/llm.py:8`: Direct instantiation of `AsyncOpenAI(api_key=settings.openai_api_key)`.
 - `app/services/llm.py:45`: Direct call to `client.chat.completions.create(model="gpt-4o-mini", ...)`.
 
-These call sites need to be modified to point to the OpenRouter base URL (`https://openrouter.ai/api/v1`) using the `OPENROUTER_API_KEY` instead of OpenAI's defaults.
+These call sites need to be modified to point to the Gemini API using the `GEMINI_API_KEY` instead of OpenAI's defaults.
 
 ## 6. Cohere Reranker Note
 
 **Decision Point:** The codebase does **not** use the Cohere reranker. Instead, it uses a local HuggingFace `sentence-transformers` CrossEncoder (`cross-encoder/ms-marco-MiniLM-L-6-v2`) instantiated in `app/services/retrieval.py:16`. 
-Since OpenRouter does not support Cohere's rerank endpoint, this local reranker approach is technically compatible as-is, but it adds significant memory/compute overhead to the API service. We must decide whether to keep the local reranker or migrate to a different managed reranking service.
+Since Gemini does not support Cohere's rerank endpoint, this local reranker approach is technically compatible as-is, but it adds significant memory/compute overhead to the API service. We must decide whether to keep the local reranker or migrate to a different managed reranking service.
 
 ## 7. "Fake It" Detection
 
@@ -99,7 +99,7 @@ Running `git log --oneline -30` yields 7 perfectly scoped commits:
 
 ### Fundamentally Broken (Needs Rewrite)
 1. **Embeddings & Vector Search**: Implement actual embedding generation in `retrieval_service` instead of a 0-vector. Rewrite the Supabase RPC to genuinely merge pgvector and BM25 (via RRF).
-2. **LLM Generation & Citations**: Migrate the `AsyncOpenAI` client to OpenRouter. Strip out the faked responses. Write actual validation logic to ensure the returned citations are within the retrieved chunk IDs.
+2. **LLM Generation & Citations**: Migrate the `AsyncOpenAI` client to Gemini. Strip out the faked responses. Write actual validation logic to ensure the returned citations are within the retrieved chunk IDs.
 3. **Evaluation Pipeline**: Remove the answer-hardcoding in `run_evals.py`. Generate a real dataset with actual chunks and QA pairs.
 
 ### Salvageable (Needs Patching)

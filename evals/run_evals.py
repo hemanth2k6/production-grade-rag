@@ -81,7 +81,7 @@ def run_eval():
         # Prevent concurrent rate limiting and reduce dataset size for free-tier constraints
         os.environ["RAGAS_MAX_CONCURRENCY"] = "1"
         
-        # Only evaluate the first 2 questions to prevent OpenRouter timeout/rate-limits in CI
+        # Only evaluate the first 2 questions to prevent Gemini timeout/rate-limits in CI
         dataset = dataset.select(range(min(2, len(dataset))))
         
         result = evaluate(

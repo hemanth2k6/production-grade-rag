@@ -21,7 +21,7 @@ This document tracks the progress of the RAG system rebuild.
 - Added a unit test proving both vector and BM25 approaches contribute to the final result set.
 
 ### 4. Citation Enforcement
-- Switched to `OpenRouter` (`openai/gpt-4o-mini`) using `OPENROUTER_API_KEY`.
+- Switched to native `Gemini` (`gemini-2.5-flash`) using `GEMINI_API_KEY`.
 - Eliminated mock/fake responses (now raises explicit exception if key is missing).
 - Added post-hoc validation to strip hallucinated citations.
 - Added automated tests to ensure the LLM refuses unanswerable questions instead of hallucinating.
@@ -33,7 +33,7 @@ This document tracks the progress of the RAG system rebuild.
 
 ### 6. & 7. Offline Evaluation
 - Generated a golden QA dataset mapped explicitly to chunk IDs in the ML corpus.
-- Rewrote the Ragas evaluation script to invoke the actual RAG pipeline, enforcing strict faithfulness checks using OpenRouter.
+- Rewrote the Ragas evaluation script to invoke the actual RAG pipeline, enforcing strict faithfulness checks using Gemini.
 
 ### 8. CI Gating
 - Updated `.github/workflows/rag-evals.yml` to strip out Supabase mock dependencies.
@@ -42,9 +42,9 @@ This document tracks the progress of the RAG system rebuild.
 
 ### 9. Deployment
 - Created a `Dockerfile` that packages the application and pre-builds vector indices at image build time.
-- Updated `render.yaml` to trigger Docker-based deployments properly injecting `OPENROUTER_API_KEY`.
+- Updated `render.yaml` to trigger Docker-based deployments properly injecting `GEMINI_API_KEY`.
 
 ## Blocked / Needs Verification
-- **OpenRouter Live Integration**: Needs verification with a live `OPENROUTER_API_KEY` in the CI/environment to ensure real completion calls succeed.
+- **Gemini Live Integration**: Needs verification with a live `GEMINI_API_KEY` in the CI/environment to ensure real completion calls succeed.
 
 
