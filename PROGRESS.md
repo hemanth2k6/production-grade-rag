@@ -21,7 +21,7 @@ This document tracks the progress of the RAG system rebuild.
 - Added a unit test proving both vector and BM25 approaches contribute to the final result set.
 
 ### 4. Citation Enforcement
-- Switched to native `Gemini` (`gemini-3.5-flash`) using `GEMINI_API_KEY`.
+- Switched to native `Gemini` (`gemini-2.5-flash`) using `GEMINI_API_KEY`.
 - Eliminated mock/fake responses (now raises explicit exception if key is missing).
 - Added post-hoc validation to strip hallucinated citations.
 - Added automated tests to ensure the LLM refuses unanswerable questions instead of hallucinating.

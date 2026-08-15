@@ -156,5 +156,5 @@ rank_bm25
 pytest
 pytest-asyncio
 slowapi==0.1.9
-langchain-google-genai
-google-genai
+langchain-google-genai==4.3.4
+google-generativeai==0.8.6

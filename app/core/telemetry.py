@@ -16,7 +16,7 @@ def log_request(query: str, retrieved_chunks: List[Dict[str, Any]], usage: Dict[
     """
     setup_telemetry()
     
-    # Calculate estimated cost (based on gemini-3.5-flash pricing from Gemini)
+    # Calculate estimated cost (based on gemini-2.5-flash pricing from Gemini)
     # $0.150 per 1M input, $0.600 per 1M output
     in_tokens = usage.get("prompt_tokens", 0)
     out_tokens = usage.get("completion_tokens", 0)
