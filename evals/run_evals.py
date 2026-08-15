@@ -72,7 +72,7 @@ def run_eval():
 
     # Ragas uses Langchain Chat models. We point it to Gemini via Langchain.
     llm = ChatGoogleGenerativeAI(
-        model="gemini-2.5-flash",
+        model="gemini-1.5-flash",
         google_api_key=settings.gemini_api_key,
         temperature=0.0
     )
