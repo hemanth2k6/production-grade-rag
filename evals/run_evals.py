@@ -94,12 +94,15 @@ def run_eval():
         # Only evaluate the first 1 question to prevent Gemini timeout/rate-limits in CI
         dataset = dataset.select(range(min(1, len(dataset))))
         
-        faithfulness.llm = llm
+        from ragas.llms import LangchainLLMWrapper
+        ragas_llm = LangchainLLMWrapper(llm)
+        
+        faithfulness.llm = ragas_llm
         
         result = evaluate(
             dataset,
             metrics=[faithfulness],
-            llm=llm,
+            llm=ragas_llm,
             raise_exceptions=False
         )
         print("Evaluation Results:")
