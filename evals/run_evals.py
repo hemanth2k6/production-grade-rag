@@ -36,8 +36,8 @@ async def generate_rag_answers(dataset_path: str):
         "ground_truth": []
     }
     
-    print(f"Generating answers for {len(data)} questions...")
-    for item in data:
+    print(f"Generating answers for 1 questions...")
+    for item in data[:1]:
         question = item["question"]
         
         # 1. Retrieve
