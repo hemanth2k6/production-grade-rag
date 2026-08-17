@@ -24,6 +24,7 @@ COPY --from=builder /root/.local /home/appuser/.local
 
 # Ensure local bin is in PATH
 ENV PATH=/home/appuser/.local/bin:$PATH
+ENV ANONYMIZED_TELEMETRY=False
 
 # Copy application code
 COPY . .

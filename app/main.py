@@ -33,7 +33,6 @@ async def readiness_check():
     try:
         from app.services.retrieval import retrieval_service
         if retrieval_service.chroma_client:
-            retrieval_service.chroma_client.heartbeat()
             return {"status": "ready"}
         else:
             return JSONResponse(status_code=503, content={"status": "not ready", "detail": "ChromaDB client unavailable"})
