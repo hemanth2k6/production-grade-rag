@@ -47,16 +47,28 @@ jobs:
           PYTHONPATH=. python evals/run_evals.py
 
   deploy:
-    name: Deploy to Render
+    name: Deploy to Azure
     needs: test-and-evaluate
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
-        
-      - name: Trigger Render Deployment
-        env:
-          RENDER_DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Log in to Azure Container Registry
         run: |
-          curl -X POST $RENDER_DEPLOY_HOOK
+          az acr login -n productionrag2026
+
+      - name: Build and Push Docker Image
+        run: |
+          docker build -t productionrag2026.azurecr.io/rag-app:${{ github.sha }} .
+          docker push productionrag2026.azurecr.io/rag-app:${{ github.sha }}
+
+      - name: Trigger Azure Container App Update
+        run: |
+          az containerapp update -n rag-app -g productionrag --image productionrag2026.azurecr.io/rag-app:${{ github.sha }}

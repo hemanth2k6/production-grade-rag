@@ -6,6 +6,5 @@ __pycache__
 *.pyc
 tests
 evals
-chroma_db
-bm25_index.pkl
+
 .pytest_cache

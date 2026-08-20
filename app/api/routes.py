@@ -15,7 +15,7 @@ class QueryRequest(BaseModel):
 
 class QueryResponse(BaseModel):
     answer: str
-    citations: List[int]
+    citations: List[str]
 
 @router.post("/query", response_model=QueryResponse)
 @limiter.limit("5/minute")
@@ -24,13 +24,13 @@ async def handle_query(request: Request, payload: QueryRequest):
     
     # Step 1: Retrieve and Rerank
     chunks = await retrieval_service.retrieve_and_rerank(
-        query=request.query, 
-        top_k=request.top_k
+        query=payload.query, 
+        top_k=payload.top_k
     )
     
     # Step 2: Generation with Citation Enforcement
     qa_response = await llm_service.generate_response(
-        query=request.query, 
+        query=payload.query, 
         retrieved_chunks=chunks
     )
     
@@ -38,7 +38,7 @@ async def handle_query(request: Request, payload: QueryRequest):
     
     # Step 3: Log Telemetry
     log_request(
-        query=request.query,
+        query=payload.query,
         retrieved_chunks=chunks,
         usage=qa_response.usage,
         latency_s=latency
