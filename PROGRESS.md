@@ -42,7 +42,8 @@ This document tracks the progress of the RAG system rebuild.
 
 ### 9. Deployment
 - Created a `Dockerfile` that packages the application and pre-builds vector indices at image build time.
-- Updated `render.yaml` to trigger Docker-based deployments properly injecting `GEMINI_API_KEY`.
+- Attempted Render deployment (`render.yaml`), but it was blocked by a host CPU instruction set incompatibility (AVX2/AVX-512 mismatch with pre-compiled ML wheels). Kept `render.yaml` for documentation.
+- Shifting deployment strategy to Azure Container Apps.
 
 ## Blocked / Needs Verification
 - **Gemini Live Integration**: Needs verification with a live `GEMINI_API_KEY` in the CI/environment to ensure real completion calls succeed.

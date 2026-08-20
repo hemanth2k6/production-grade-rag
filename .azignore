@@ -1,4 +1,3 @@
-.env
 venv
 .git
 .github
@@ -9,3 +8,4 @@ evals
 chroma_db
 bm25_index.pkl
 .pytest_cache
+.env
