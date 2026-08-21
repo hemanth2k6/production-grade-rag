@@ -36,8 +36,8 @@ async def generate_rag_answers(dataset_path: str):
         "ground_truth": []
     }
     
-    print(f"Generating answers for 1 questions...")
-    for item in data[:1]:
+    print(f"Generating answers for {len(data)} questions...")
+    for item in data:
         question = item["question"]
         
         # 1. Retrieve
@@ -87,12 +87,12 @@ def run_eval():
     )
 
     try:
-        # Prevent concurrent rate limiting and reduce dataset size for free-tier constraints
+        # Prevent concurrent rate limiting for free-tier constraints
         os.environ["RAGAS_MAX_CONCURRENCY"] = "1"
-        os.environ["GOOGLE_MODEL_NAME"] = "gemini-3.5-flash"
+        os.environ["GOOGLE_MODEL_NAME"] = "gemini-1.5-flash"
         
-        # Only evaluate the first 1 question to prevent Gemini timeout/rate-limits in CI
-        dataset = dataset.select(range(min(1, len(dataset))))
+        from ragas.run_config import RunConfig
+        run_config = RunConfig(max_workers=1, max_retries=10, max_wait=60, timeout=120)
         
         from ragas.llms import LangchainLLMWrapper
         ragas_llm = LangchainLLMWrapper(llm)
@@ -103,6 +103,7 @@ def run_eval():
             dataset,
             metrics=[faithfulness],
             llm=ragas_llm,
+            run_config=run_config,
             raise_exceptions=False
         )
         print("Evaluation Results:")
@@ -119,12 +120,9 @@ def run_eval():
             faithfulness_score = 0.0
                 
         import math
-        if math.isnan(faithfulness_score):
-            print("Notice: Ragas evaluation timed out due to Gemini free tier rate limits (15 RPM).")
-            print("Generated Answers for Verification:")
-            print(dataset["answer"])
-            print("Passing CI since RAG generation succeeded.")
-            sys.exit(0)
+        if faithfulness_score is None or math.isnan(faithfulness_score):
+            print("Evaluation produced no valid score - failing closed")
+            sys.exit(1)
             
         if faithfulness_score < 0.75:
             print(f"::error::Faithfulness score ({faithfulness_score}) is below the threshold of 0.75")

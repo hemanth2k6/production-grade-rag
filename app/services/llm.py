@@ -10,7 +10,7 @@ class QAResponse(BaseModel):
     usage: Dict[str, int] = Field(default_factory=dict, description="Token usage details")
 
 client = ChatGoogleGenerativeAI(
-    model="gemini-3.5-flash",
+    model="gemini-1.5-flash",
     google_api_key=settings.gemini_api_key,
     temperature=0.0,
     max_retries=20
