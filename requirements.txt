@@ -13,3 +13,7 @@ python-dotenv==1.0.1
 pytest
 pytest-asyncio
 numpy==1.26.4
+datasets==5.0.1
+ragas==0.4.3
+langchain-openai==1.4.3
+requests==2.34.2
